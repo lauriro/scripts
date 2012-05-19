@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# Script for showing volume OSD
+# =============================
+#
+# Dependencies:
+#   - notify-send
+#   - amixer
+#
+# Installation
+# ------------
+#
+# $ wget -O notify-volume https://raw.github.com/lauriro/scripts/master/notify-volume
+# $ chmod +x notify-volume
+# $ # Test, does it works
+# $ ./notify-volume
+# $ # Or with multiple cards
+# $ ./notify-volume 1
+# $ # When it's ok, set it up under PATH
+# $ sudo mv notify-volume /usr/bin/notify-volume
+#
+#
+# THE BEER-WARE LICENSE
+# =====================
+#
+# <lauri@rooden.ee> wrote this file. As long as you retain this notice you 
+# can do whatever you want with this stuff at your own risk. If we meet some 
+# day, and you think this stuff is worth it, you can buy me a beer in return.
+# -- Lauri Rooden -- https://github.com/lauriro/scripts
+#
+
+vol=$(amixer -c ${1-0} sget ${2-Master} | cut -sd '[' -f 2,4 | tr -d '][%')
+
+set -- muted off low medium high
+test "${vol#* }" = "on" && shift $(((${vol% *}+66)*3/100))
+
+notify-send -i notification-audio-volume-$1 -h int:value:${vol% *} -h string:synchronous:volume " "
+
+
