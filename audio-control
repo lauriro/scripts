@@ -1,0 +1,63 @@
+#!/bin/sh
+#
+# Script for controlling audio
+# ============================
+#
+# Dependencies:
+#   - notify-send
+#   - amixer
+#   - notify-volume script
+#
+# Installation
+# ------------
+#
+# $ wget -O audio-control https://raw.github.com/lauriro/scripts/master/audio-control
+# $ chmod +x audio-control
+# $ # Test, does it works
+# $ ./audio-control vol 5%+
+# $ ./audio-control vol 5%-
+# $ ./audio-control mute
+# $ ./audio-control mute
+# $ ./audio-control output
+# $ ./audio-control output
+# $ # When it's ok, set it up under PATH
+# $ sudo mv audio-control /usr/bin/audio-control
+#
+#
+# THE BEER-WARE LICENSE
+# =====================
+#
+# <lauri@rooden.ee> wrote this file. As long as you retain this notice you 
+# can do whatever you want with this stuff at your own risk. If we meet some 
+# day, and you think this stuff is worth it, you can buy me a beer in return.
+# -- Lauri Rooden -- https://github.com/lauriro/scripts
+#
+
+active=$(pacmd list-sinks | sed -n 's/* index: //p')
+
+case $1 in
+	vol)
+		amixer -q -c $active set Master $2
+		notify-volume $active
+		;;
+	mute)
+		mute=$(pacmd list-sinks | grep muted: | sed -n "$(($active+1))p" | grep -c no)
+		
+		pacmd set-sink-mute $active $mute >/dev/null
+		notify-volume $active
+		;;
+	output)
+		next=$(pacmd list-sinks | sed -n '/index: /{s///p;x;/./x};${x;p}' | sed -n '/*/{n;p}')
+
+		pacmd set-default-sink $next >/dev/null
+
+		#move all inputs to the new sink
+		for i in $(pacmd list-sink-inputs | sed -n -e 's/index: //p'); do
+			pacmd move-sink-input $i $next >/dev/null
+		done
+
+		name=$(pacmd list-sinks | sed -n -e 's/[ 	]*device.description = "\(.*\)"/\1/p' | sed -n "$(($next+1))p")
+		notify-send -i notification-audio-volume-high "Sound output switched to" "$name"
+		;;
+esac
+
