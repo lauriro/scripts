@@ -41,10 +41,11 @@ case $1 in
 		notify-volume $active
 		;;
 	mute)
-		mute=$(pacmd list-sinks | grep muted: | sed -n "$(($active+1))p" | grep -c no)
-		
+		mute=$(amixer -c $active get Master | grep -cF '[on]')
 		pacmd set-sink-mute $active $mute >/dev/null
 		notify-volume $active
+		# amixer dosn't change led
+		#amixer -q -c $active set Master toggle	
 		;;
 	output)
 		next=$(pacmd list-sinks | sed -n '/index: /{s///p;x;/./x};${x;p}' | sed -n '/*/{n;p}')
