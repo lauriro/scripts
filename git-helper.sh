@@ -25,11 +25,7 @@
 
 
 title() {
-	printf "\n$1\n%0${#1}d\n" | sed "/^00*$/s/0/${2-=}/g"
-
-	#$ head -c ${#1} < /dev/zero | tr '\0' "${2-=}"
-	#$ len=100 ch='#'
-	#$ printf '%*s' "$len" ' ' | tr ' ' "$ch"
+	printf "\n%s\n%0*d\n" "$1" ${#1} | sed "\$s/0/${2-=}/g"
 }
 
 tag_title() {
@@ -110,7 +106,7 @@ git_thanks() {
 
 git_version() {
 	# git describe --long --dirty 2>/dev/null > VERSION || echo "Initial version-g$(git rev-parse --short HEAD)" > VERSION
-  echo "$(git describe --long 2>/dev/null || echo "Initial version-g$(git rev-parse --short HEAD)")$(git diff --no-ext-diff --quiet --exit-code || echo '-dirty')" > VERSION
+	echo "$(git describe --long 2>/dev/null || echo "Initial version-g$(git rev-parse --short HEAD)")$(git diff --no-ext-diff --quiet --exit-code || echo '-dirty')" > VERSION
 	echo "Version: $(cat VERSION)"
 }
 
