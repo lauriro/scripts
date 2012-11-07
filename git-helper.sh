@@ -109,8 +109,8 @@ git_thanks() {
 }
 
 git_version() {
-	#	git describe --long --dirty 2>/dev/null > VERSION || echo "Initial version." > VERSION
-	echo "$(git describe --long 2>/dev/null || echo 'Initial version')$(git diff --no-ext-diff --quiet --exit-code || echo '-dirty')" > VERSION
+	# git describe --long --dirty 2>/dev/null > VERSION || echo "Initial version-g$(git rev-parse --short HEAD)" > VERSION
+	echo "$(git describe --long 2>/dev/null || echo "Initial version-g$(git rev-parse --short HEAD)")$(git diff --no-ext-diff --quiet --exit-code || echo '-dirty')" > VERSION
 	echo "Version: $(cat VERSION)"
 }
 
@@ -132,6 +132,16 @@ git_activity() {
 	# number of commits
 	#$ git shortlog -s --all | { SUM=0; while read NUM NAME; do SUM=$(($SUM+$NUM)); done; echo $SUM; }
 
+}
+
+git_shallow_submodules() {
+	git submodule init
+	for i in $(git submodule | sed -e 's/.* //'); do
+			spath=$(git config -f .gitmodules --get submodule.$i.path)
+			surl=$(git config -f .gitmodules --get submodule.$i.url)
+			git clone --depth 1 $surl $spath
+	done
+	git submodule update
 }
 
 [ "$1" ] && "git_$1"
