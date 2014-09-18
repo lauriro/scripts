@@ -24,6 +24,10 @@
 #
 
 
+# Also, if you have an int variable 'n' that contains the number of spaces to include,
+# you can use: printf("%*s%s\n", n, "", ptr); to get a variable number of spaces.
+
+
 title() {
 	printf "\n$1\n%0${#1}d\n" | sed "/^00*$/s/0/${2-=}/g"
 

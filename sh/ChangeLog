@@ -1,0 +1,12 @@
+
+ChangeLog
+=========
+
+  * Add git_shallow_submodules (Lauri Rooden)
+  * Add clipboard.sh (Lauri Rooden)
+  * Add google-appcfg (Lauri Rooden)
+  * Add git-helper.sh (Lauri Rooden)
+  * Use amixer to get mute status in audio-control (Lauri Rooden)
+  * Add audio-control (Lauri Rooden)
+  * Add notify-volume (Lauri Rooden)
+  * Initial commit (Lauri Rooden)

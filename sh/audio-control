@@ -42,19 +42,23 @@ case $1 in
 		;;
 	mute)
 		mute=$(amixer -c $active get Master | grep -cF '[on]')
-		pacmd set-sink-mute $active $mute >/dev/null
-		notify-volume $active
+		pacmd set-sink-mute $active $mute 
+		# >/dev/null
+		echo notify-volume $active
 		# amixer dosn't change led
 		#amixer -q -c $active set Master toggle	
 		;;
 	output)
-		next=$(pacmd list-sinks | sed -n '/index: /{s///p;x;/./x};${x;p}' | sed -n '/*/{n;p}')
+		next=$(pacmd list-sinks | sed -n '/index: /{s///p;x;/./x};${x;p}' | sed -n '/*/{n;s///p}')
 
-		pacmd set-default-sink $next >/dev/null
+		pacmd set-default-sink $next
+		# >/dev/null
 
 		#move all inputs to the new sink
 		for i in $(pacmd list-sink-inputs | sed -n -e 's/index: //p'); do
-			pacmd move-sink-input $i $next >/dev/null
+			pacmd move-sink-input $i $next
+			echo "Move $i to $next"
+			# >/dev/null
 		done
 
 		name=$(pacmd list-sinks | sed -n -e 's/[ 	]*device.description = "\(.*\)"/\1/p' | sed -n "$(($next+1))p")
