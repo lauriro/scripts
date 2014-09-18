@@ -1,0 +1,28 @@
+Küsimus: Kellel on lemmikloomaks kalad?
+
+Faktid:
+
+   1. Britt elab punases majas.
+   2. Rootslasel on lemmikloomaks koer.
+   3. Taanlane joob teed.
+   4. Roheline maja asub valgest majast vasakul.
+   5. Rohelise maja omanik joob kohvi.
+   6. Inimene, kes suitsetab Pall Malli, kasvatab linde.
+   7. Kollase maja omanik suitsetab Dunhilli.
+   8. Inimene, kes elab keskmises majas, joob piima.
+   9. Norrakas elab esimeses majas.
+  10. Inimene, kes suitsetab Blendi, elab kõrvuti (on naaber) inimesega, kellel on lemmikloomaks kass.
+  11. Inimene, kellel on hobune, elab kõrvuti (on naaber) inimesega, kes suitsetab Dunhilli.
+  12. Inimene, kes suitsetab Bluemastersi, joob õlut.
+  13. Sakslane suitsetab Prince'i.
+  14. Norrakas elab sinise maja kõrval (tema majast järgmine maja on sinine).
+  15. Inimesel, kes suitsetab Blendi, on naabriks see, kes joob vett. 
+  
+
+Teada on faktid:
+1. Michael mängib korvpalli ja ta oli parem kui ameeriklane.
+2. Simon on israellane ja ta oli parem kui tennisemängija.
+3. Kriketimängija tuli esimeseks.
+Küsimused:
+• Kes on austraallane?
+• Millist sporti teeb Richard?

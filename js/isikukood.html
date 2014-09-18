@@ -1,0 +1,25 @@
+<script type="text/javascript">
+
+function isikukood(kood) {
+	var mod = 0;
+	for (var i=0; i < 10; i++) mod += kood.charAt(i) * (1+i%9);
+	mod %= 11;
+	if (mod === 10) { 
+		mod = 0;
+		for (var i=0; i<10; i++) mod += kood.charAt(i) * (1+(i+2)%9);
+		mod %= 11;
+		if (10 == mod) mod = 0;
+	}
+	return kood.charAt(10) == mod;
+}
+
+function test(form){
+	form.result.value = String(isikukood(form.ik.value) )
+}
+
+</script>
+Isikukood:<br><form action="javascript:" onsubmit="test(this)" style="margin:0">
+<input id="ik"><input type="submit" value="test"><input id="result" disabled>
+
+<hr><i><b>Isikukood</b> - riigi poolt kodanikele ning alaliselt riigis elavatele isikutele omistatav unikaalne numbrikombinatsioon.</i>
+</form>
