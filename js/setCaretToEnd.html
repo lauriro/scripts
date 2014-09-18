@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Caret positioning for text controls in IE, Mozilla, and Opera</title>
+<script type="text/javascript">
+function setCaretToEnd (control) {
+  if (control.createTextRange) {
+    var range = control.createTextRange();
+    range.collapse(false);
+    range.select();
+  }
+  else if (control.setSelectionRange) {
+    control.focus();
+    var length = control.value.length;
+    control.setSelectionRange(length, length);
+  }
+}
+
+function setCaretToStart (control) {
+  if (control.createTextRange) {
+    var range = control.createTextRange();
+    range.collapse(true);
+    range.select();
+  }
+  else if (control.setSelectionRange) {
+    control.focus();
+    control.setSelectionRange(0, 0);
+  }
+}
+</script>
+</head>
+<body>
+
+<h1>Caret positioning for text controls in IE, Mozilla, and Opera</h1>
+
+<form action="" onsubmit="return false;">
+
+<div>
+<input type="text" name="inputName" value="Kibology">
+<input type="button" value="move caret to end"
+       onclick="setCaretToEnd(this.form.elements.inputName);">
+<input type="button" value="move caret to start"
+       onclick="setCaretToStart(this.form.elements.inputName);">
+</div>
+
+<div>
+<input type="password" name="passwordName" value="Kibology">
+<input type="button" value="move caret to end"
+       onclick="setCaretToEnd(this.form.elements.passwordName);">
+<input type="button" value="move caret to start"
+       onclick="setCaretToStart(this.form.elements.passwordName);">
+</div>
+
+<div>
+<textarea name="textareaName" rows="5" cols="80">
+Kibology for all.
+All for Kibology.
+Kibology for all.
+</textarea>
+<br>
+<input type="button" value="move caret to end"
+       onclick="setCaretToEnd(this.form.elements.textareaName);">
+<input type="button" value="move caret to start"
+       onclick="setCaretToStart(this.form.elements.textareaName);">
+</div>
+
+</form>
+</body>
+</html>
